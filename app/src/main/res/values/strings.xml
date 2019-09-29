@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SurfaceActivity</string>
+    <string name="value_format">%1$.2f</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="google_maps_key">AIzaSyDTBFiIa1a6od_OiageBvGdGTaoxNJ1J7Y </string>
+    <string name="Désir_joueur">Vous avez débloqué un trésor ! Sélectionnez le marqueur bleu.</string>
+    <string name="Capture_trésor">Bravo ! Vous avez trouvé le trésor !</string>
+    <string name="Enonce_énigme">Résolvez les énigmes ci-dessous pour débloquer la localisation des trésors</string>
+    <string name="explication1">Trouvez la couronne sur la photo</string>
+    <string name="explication2">Retrouvez Cambacérès, Louis Bonaparte et Joséphine de Beauharnais</string>
+    <string name="explication3">Retrouvez Karl Marx, Marlon Brando et Oscar Wilde</string>
+    <string name="explication4">Retrouvez Archimède, Alexandre le Grand et Pythagore</string>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="openclass.tp.nfa024.cnam.fr.surfaceactivity">
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <meta-data
+        android:name="com.google.android.geo.19"
+        android:value="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDTBFiIa1a6od_OiageBvGdGTaoxNJ1J7Y" />
+
+        <receiver android:name="openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.AlertReceiver">
+            <intent-filter>
+                <action android:name="ACTION_PROXIMITY_ALERT"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".BDD.Menu">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+            <activity android:name=".Contrôleur.GameBoussoleActivity"/>
+            <activity android:name=".Contrôleur.Scanner"/>
+        <activity android:name=".Contrôleur.Enigme"/>
+        <activity android:name=".Contrôleur.MapActivity2"/>
+        <activity android:name=".Contrôleur.Accueil_nouveauJeu"/>
+        <activity android:name=".BDD.BDDActivity"/>
+        <activity android:name=".BDD.ResultActivity"/>
+    </application>
+
+</manifest>

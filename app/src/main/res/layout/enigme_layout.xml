@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:text="@string/Enonce_énigme"
+        android:textSize="18dp"></TextView>
+
+    <Button
+        android:id="@+id/enigme1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:tag="Vendôme"
+        android:text="Vendôme"
+        >
+    </Button>
+
+    <TextView
+        android:id="@+id/expl1"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:text="@string/explication1"
+        android:textSize="18dp"></TextView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Napoléon"
+        android:id="@+id/enigme2"
+        android:tag="Napoléon">
+    </Button>
+
+    <TextView
+        android:id="@+id/expl2"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:text="@string/explication2"
+        android:textSize="18dp"></TextView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Beatles"
+        android:id="@+id/enigme3"
+        android:tag="Beatles">
+    </Button>
+
+    <TextView
+        android:id="@+id/expl3"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:text="@string/explication3"
+        android:textSize="18dp"></TextView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="raphael"
+        android:id="@+id/enigme4"
+        android:tag="Raphaël"
+        >
+    </Button>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/explication4"
+        android:textSize="18dp"
+        android:id="@+id/expl4">
+    </TextView>
+</LinearLayout>
