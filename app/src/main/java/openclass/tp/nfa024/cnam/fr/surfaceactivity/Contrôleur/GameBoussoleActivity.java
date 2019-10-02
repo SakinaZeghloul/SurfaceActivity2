@@ -13,13 +13,14 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.preference.PowerPreference;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.CameraPreview;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.POI;
-import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.POIHash;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.POIOnlyView;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.SensorMatrix;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.R;
@@ -60,11 +61,20 @@ public class GameBoussoleActivity extends AppCompatActivity {
         mCameraPreview=new CameraPreview(this, filtered);
 
         mPOIOnlyView=new POIOnlyView(this);
-        mPOIHashMap= POIHash.getPOIHash();
+        mPOIHashMap=PowerPreference.getDefaultFile().getMap("POIHash", HashMap.class, String.class, POI.class);
 
+
+        for (Map.Entry<String, POI> g : mPOIHashMap.entrySet()) {
+            mPOI=g.getValue();
+
+            Log.d(TAG, "POI: " + mPOI.getId());
+            Log.d(TAG, "POI tag: " + mPOI.getTag());
+            Log.d(TAG, "POI latitude: " + mPOI.getLatitude());
+        }
 
         final FrameLayout layout = this.findViewById(R.id.surface_preview);
         layout.addView(mCameraPreview);
+        layout.addView(mPOIOnlyView);
 
         for (Map.Entry<String, POI> e : mPOIHashMap.entrySet()) {
             mPOI = e.getValue();
@@ -77,12 +87,15 @@ public class GameBoussoleActivity extends AppCompatActivity {
             }
         }
 
+
         ImageButton btn = findViewById(R.id.button2);
+
 
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+
 
                 for (Map.Entry<String, POI> e : mPOIHashMap.entrySet()) {
                     mPOI = e.getValue();
@@ -105,6 +118,7 @@ public class GameBoussoleActivity extends AppCompatActivity {
                 }
             }
         });
+
 
 
         mSensorMatrix=new SensorMatrix();
