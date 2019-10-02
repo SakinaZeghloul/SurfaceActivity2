@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.preference.PowerPreference;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,19 @@ import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.POIHash;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.R;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.alexandre_le_grand;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.archimede;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.beatlesString;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.bonaparte;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.cambaceres;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.couronne;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.josephine;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.karl_marx;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.marlon_brando;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.napoleonString;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.oscar_wilde;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.pythagore;
+import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.raphaelString;
 import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.vendomeString;
 
 public class Enigme extends AppCompatActivity implements OnClickableAreaClickedListener {
@@ -31,14 +47,16 @@ public class Enigme extends AppCompatActivity implements OnClickableAreaClickedL
     private String loadGame;
     private HashMap<String, POI> mPOIHashMap;
     private HashMap<Integer, ImageTableau> mImageHash;
-    private Scanner mScanner;
+
+
     private static final String TAG = "Enigme";
     private int mScore;
     private String ENIGME, choix;
+    private JsonActivity mJsonActivity;
 
 
     private ImageView mImageView;
-    private uk.co.senab.photoview.PhotoViewAttacher mAttacher;
+    private PhotoViewAttacher mAttacher;
     private ClickableAreasImage mClickableAreasImage;
 
 
@@ -48,7 +66,7 @@ public class Enigme extends AppCompatActivity implements OnClickableAreaClickedL
         setContentView(R.layout.enigme_layout);
 
         mScore = 0;
-        mScanner = new Scanner();
+
         mImageHash= POIHash.getImageHash();
 
 
@@ -58,15 +76,13 @@ public class Enigme extends AppCompatActivity implements OnClickableAreaClickedL
         btnRaphael = (Button) findViewById(R.id.enigme4);
 
 
-        mPOIHashMap = POIHash.getPOIHash();
-
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
             loadGame = (String) extras.get("Load Game");
 
             if (loadGame != null) {
-                mPOIHashMap = mScanner.loadDataPOI(this);
+            //    mPOIHashMap = mScanner.loadDataPOI(this);
             }
         }
 
@@ -119,7 +135,7 @@ public class Enigme extends AppCompatActivity implements OnClickableAreaClickedL
 
         mClickableAreasImage = new ClickableAreasImage(mAttacher, this);
 
-        List<ClickableArea> clickableAreaList = POIHash.getClickableAreasList();
+        List<ClickableArea> clickableAreaList = getClickableAreasList();
         mClickableAreasImage.setClickableAreas(clickableAreaList);
     }
 
@@ -164,6 +180,9 @@ public class Enigme extends AppCompatActivity implements OnClickableAreaClickedL
                 Log.d(TAG, "Score: " + mScore);
                 Log.d(TAG, "Integer: " + e.getValue());
                 tab.setDetecte(0);
+
+             //   mScanner.saveData(mPOIHashMap);
+
                 Intent game = new Intent(Enigme.this, MapActivity2.class);
                 game.putExtra(ENIGME, tab.getNomTableau());
                 startActivity(game);
@@ -174,6 +193,7 @@ public class Enigme extends AppCompatActivity implements OnClickableAreaClickedL
 
     private void desactiveBouton() {
 
+        mPOIHashMap= PowerPreference.getDefaultFile().getMap("POIHash", HashMap.class, String.class, POI.class);
 
         for (Map.Entry<String, POI> e : mPOIHashMap.entrySet()) {
             POI mPOI = e.getValue();
@@ -200,5 +220,26 @@ public class Enigme extends AppCompatActivity implements OnClickableAreaClickedL
             }
         }
     }
+
+    public static List<ClickableArea> getClickableAreasList() {
+
+        List<ClickableArea> clickableAreas = new ArrayList<>();
+
+        clickableAreas.add(new ClickableArea(1080, 400, 80, 50, new ImageTableau(couronne, vendomeString, 0)));
+
+        clickableAreas.add(new ClickableArea(380, 380, 50, 80, new ImageTableau(josephine, napoleonString, 0)));
+        clickableAreas.add(new ClickableArea(650, 340, 50, 80, new ImageTableau(cambaceres, napoleonString, 0)));
+        clickableAreas.add(new ClickableArea(64, 340, 40, 100, new ImageTableau(bonaparte, napoleonString, 0)));
+
+        clickableAreas.add(new ClickableArea(70, 90, 60, 40, new ImageTableau(marlon_brando, beatlesString, 0)));
+        clickableAreas.add(new ClickableArea(400, 45, 40, 40, new ImageTableau(karl_marx, beatlesString, 0)));
+        clickableAreas.add(new ClickableArea(160, 100, 40, 40, new ImageTableau(oscar_wilde, beatlesString, 0)));
+
+        clickableAreas.add(new ClickableArea(1140, 710, 100, 70, new ImageTableau(archimede, raphaelString, 0)));
+        clickableAreas.add(new ClickableArea(340, 690, 80, 100, new ImageTableau(pythagore, raphaelString, 0)));
+        clickableAreas.add(new ClickableArea(380, 480, 50, 120, new ImageTableau(alexandre_le_grand, raphaelString, 0)));
+
+
+        return clickableAreas;}
 }
 
