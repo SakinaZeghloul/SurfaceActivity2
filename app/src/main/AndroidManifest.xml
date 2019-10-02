@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
@@ -40,7 +41,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".BDD.Menu">
+        <activity android:name=".Contrôleur.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,11 +50,9 @@
         </activity>
             <activity android:name=".Contrôleur.GameBoussoleActivity"/>
             <activity android:name=".Contrôleur.Scanner"/>
-        <activity android:name=".Contrôleur.Enigme"/>
+        <activity android:name="openclass.tp.nfa024.cnam.fr.chasseautrsor.Contrôleur.Enigme"/>
         <activity android:name=".Contrôleur.MapActivity2"/>
         <activity android:name=".Contrôleur.Accueil_nouveauJeu"/>
-        <activity android:name=".BDD.BDDActivity"/>
-        <activity android:name=".BDD.ResultActivity"/>
     </application>
 
 </manifest>
