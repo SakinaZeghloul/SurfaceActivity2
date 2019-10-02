@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.preference.PowerPreference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,6 @@ import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.AlertReceiver;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.LocalisationManager;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.POI;
-import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.POIHash;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.R;
 
 import static openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.Constantes.LONGITUDE_RAPHAEL;
@@ -49,7 +49,7 @@ public class MapActivity2 extends FragmentActivity implements OnMapReadyCallback
     private HashMap<String, POI> mPOIHashMap, hashMapPOI;
     private HashMap<Marker, POI> mMarkerMap;
     private POI mPOI;
-    private Scanner mScanner;
+
 
     Button retourAccueil;
     String loadGame, newGame;
@@ -77,7 +77,10 @@ public class MapActivity2 extends FragmentActivity implements OnMapReadyCallback
 
         Location l = g.getLocation();
 
-        mPOIHashMap = POIHash.getPOIHash();
+   //     mPOIHashMap = POIHash.getPOIHash();
+    //    mPOIHashMap=mScanner.loadDataPOI(this);
+        mPOIHashMap=PowerPreference.getDefaultFile().getMap("POIHash", HashMap.class, String.class, POI.class);
+
         mMarkerMap = new HashMap<>();
         hashMapPOI = new HashMap<>();
 
@@ -96,7 +99,7 @@ public class MapActivity2 extends FragmentActivity implements OnMapReadyCallback
                 Log.d(TAG, "Choix: " + choix);
 
                 if(loadGame!=null){
-                    hashMapPOI=mScanner.loadDataPOI(this);
+                    hashMapPOI=PowerPreference.getDefaultFile().getMap("POIHash", HashMap.class, String.class, POI.class);
                     for (Map.Entry<String, POI> e : hashMapPOI.entrySet()) {
                         mPOI = e.getValue();
                         Log.d(TAG, "mPOI: " + mPOI.isCapture());
@@ -156,6 +159,7 @@ public class MapActivity2 extends FragmentActivity implements OnMapReadyCallback
 
                         if(marker.getTitle().equals(mPOI.getId())) {
                             mPOI.setTag(2);
+                            PowerPreference.getDefaultFile().setMap("POIHash", mPOIHashMap);
                             proximityAlert(mPOI.getLatitude(), mPOI.getLongitude());
                             Log.d(TAG, "mPOI: " + mPOI.getId());
                         }
@@ -168,6 +172,7 @@ public class MapActivity2 extends FragmentActivity implements OnMapReadyCallback
 
 
         tresorTrouve(mMarkerMap);
+        PowerPreference.getDefaultFile().setMap("POIHash", mPOIHashMap);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(RAPHAEL));
         LatLng latLng = new LatLng(Constantes.LATITUDE_RAPHAEL, LONGITUDE_RAPHAEL);
@@ -182,16 +187,16 @@ public class MapActivity2 extends FragmentActivity implements OnMapReadyCallback
             mPOI=e.getValue();
             String g=e.getKey();
 
-            Marker marker=ajoutMarker(mPOI.getLatLng(), g);
+            Marker marker=ajoutMarker(mPOI.getLatitude(), mPOI.getLongitude(), g);
 
             mMarkerMap.put(marker, mPOI);
         }
     }
 
-    private Marker ajoutMarker(LatLng latlng, String nom) {
+    private Marker ajoutMarker(double latitude, double longitude, String nom) {
 
         return mMap.addMarker(new MarkerOptions()
-                .position(latlng)
+                .position(new LatLng(latitude, longitude))
                 .title(nom));
     }
 
