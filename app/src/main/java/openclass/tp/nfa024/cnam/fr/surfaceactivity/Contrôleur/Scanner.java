@@ -13,13 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.preference.PowerPreference;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.POI;
-import openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.POIHash;
 import openclass.tp.nfa024.cnam.fr.surfaceactivity.R;
 
 
@@ -47,7 +47,7 @@ public class Scanner extends AppCompatActivity {
         tv = findViewById(R.id.text_view);
 
 
-        mPOIHashMap=POIHash.getPOIHash();
+        mPOIHashMap= PowerPreference.getDefaultFile().getMap("POIHash", HashMap.class, String.class, POI.class);
 
         this.btn = (Button) this.findViewById(R.id.btn);
         this.btn2 = (Button) this.findViewById(R.id.btn2);
@@ -85,7 +85,7 @@ public class Scanner extends AppCompatActivity {
                     String g=e.getKey();
                     mPOI=e.getValue();
                 }
-                saveData(mPOIHashMap);
+                PowerPreference.getDefaultFile().setMap("POIHash", mPOIHashMap);
                 Intent map = new Intent(view.getContext(), MapActivity2.class);
                 startActivity(map);
             }
@@ -96,7 +96,7 @@ public class Scanner extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "saveData");
-                saveData(mPOIHashMap);
+                PowerPreference.getDefaultFile().setMap("POIHash", mPOIHashMap);
                 Intent map = new Intent(view.getContext(), Enigme.class);
                 map.putExtra("Trésor", "Retour aux énigmes");
                 startActivity(map);
@@ -105,7 +105,7 @@ public class Scanner extends AppCompatActivity {
     }
 
 
-    private void saveData(HashMap<String, POI> testHashMap) {
+    public void saveData(HashMap<String, POI> testHashMap) {
 
         SharedPreferences mSharedPreferences = this.getSharedPreferences(SHARED_PREFS,
                 this.MODE_PRIVATE);
@@ -116,7 +116,7 @@ public class Scanner extends AppCompatActivity {
 
         editorKey.putString("KeyPOI", jsonMap);
 
-        editorKey.commit();
+        editorKey.apply();
     }
 
     public HashMap<String, POI> loadDataPOI(Context context) {
