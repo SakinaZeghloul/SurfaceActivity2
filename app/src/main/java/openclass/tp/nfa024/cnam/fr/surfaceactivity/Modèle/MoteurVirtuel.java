@@ -9,6 +9,8 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.preference.PowerPreference;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,7 +48,7 @@ public class MoteurVirtuel extends View {
         mPoint = new Point(Constantes.SCREEN_WIDTH / 2, 3 * Constantes.SCREEN_HEIGHT / 4);
         mPOIObject.update(mPoint);
         mPOI = new POI();
-        mPOIHashMap = POIHash.getPOIHash();
+        mPOIHashMap= PowerPreference.getDefaultFile().getMap("POIHash", HashMap.class, String.class, POI.class);
 
         Constantes.CURRENT_CONTEXT = context;
 
@@ -99,6 +101,11 @@ public class MoteurVirtuel extends View {
         double r = mSensorMatrix.orientationAngles[1];
         double s = mSensorMatrix.orientationAngles[0];
 
+        if (r <100 && r > 0)
+        {
+            mPOIObject.draw(canvas);
+        }
+
         for (Map.Entry<String, POI> e : mPOIHashMap.entrySet()) {
             mPOI = e.getValue();
 
@@ -114,7 +121,7 @@ public class MoteurVirtuel extends View {
                         break;
 
                     case napoleonString:
-                        if (r < mPOI.getMax() && r > mPOI.getMin())
+                        if (r < 100 && r >0)
                         {
                             mPOIObject.draw(canvas);
                         }
