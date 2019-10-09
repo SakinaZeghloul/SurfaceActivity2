@@ -33,7 +33,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDTBFiIa1a6od_OiageBvGdGTaoxNJ1J7Y" />
+            android:value="" />
 
         <receiver android:name="openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.AlertReceiver">
             <intent-filter>
