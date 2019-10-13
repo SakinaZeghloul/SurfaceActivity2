@@ -33,7 +33,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDTBFiIa1a6od_OiageBvGdGTaoxNJ1J7Y" />
+            android:value="" />
 
         <receiver android:name="openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.AlertReceiver">
             <intent-filter>
@@ -41,7 +41,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Contrôleur.MenuActivity">
+        <activity android:name=".Contrôleur.Accueil_nouveauJeu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,9 +50,8 @@
         </activity>
             <activity android:name=".Contrôleur.GameBoussoleActivity"/>
             <activity android:name=".Contrôleur.Scanner"/>
-        <activity android:name="openclass.tp.nfa024.cnam.fr.chasseautrsor.Contrôleur.Enigme"/>
+        <activity android:name=".Contrôleur.Enigme"/>
         <activity android:name=".Contrôleur.MapActivity2"/>
-        <activity android:name=".Contrôleur.Accueil_nouveauJeu"/>
     </application>
 
 </manifest>
