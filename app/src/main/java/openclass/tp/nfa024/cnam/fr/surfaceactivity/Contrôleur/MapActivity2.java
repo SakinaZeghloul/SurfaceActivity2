@@ -151,19 +151,23 @@ public class MapActivity2 extends FragmentActivity implements OnMapReadyCallback
             @Override
             public boolean onMarkerClick(Marker marker) {
 
-                if (marker.getSnippet().contains("Bleu")) {
+                try {
+                    if (marker.getSnippet().contains("Bleu")) {
 
-                for (Map.Entry<Marker, POI> e : mMarkerMap.entrySet()) {
+                        for (Map.Entry<Marker, POI> e : mMarkerMap.entrySet()) {
 
-                        mPOI=e.getValue();
+                            mPOI = e.getValue();
 
-                        if(marker.getTitle().equals(mPOI.getId())) {
-                            mPOI.setTag(2);
-                            PowerPreference.getDefaultFile().setMap("POIHash", mPOIHashMap);
-                            proximityAlert(mPOI.getLatitude(), mPOI.getLongitude());
-                            Log.d(TAG, "mPOI: " + mPOI.getId());
+                            if (marker.getTitle().equals(mPOI.getId())) {
+                                mPOI.setTag(2);
+                                PowerPreference.getDefaultFile().setMap("POIHash", mPOIHashMap);
+                                proximityAlert(mPOI.getLatitude(), mPOI.getLongitude());
+                                Log.d(TAG, "mPOI: " + mPOI.getId());
+                            }
                         }
                     }
+                }catch(Exception e) {
+                    e.printStackTrace();
                 }
 
                 return false;
