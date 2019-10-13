@@ -52,7 +52,6 @@ public class Enigme extends AppCompatActivity implements OnClickableAreaClickedL
     private static final String TAG = "Enigme";
     private int mScore;
     private String ENIGME, choix;
-    private JsonActivity mJsonActivity;
 
 
     private ImageView mImageView;
