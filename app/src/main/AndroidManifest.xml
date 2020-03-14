@@ -29,29 +29,65 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="" />
 
-        <receiver android:name="openclass.tp.nfa024.cnam.fr.surfaceactivity.Modèle.AlertReceiver">
+        <receiver android:name="openclass.tp.nfa024.cnam.fr.surfaceactivity.modèle.AlertReceiver">
             <intent-filter>
                 <action android:name="ACTION_PROXIMITY_ALERT"/>
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Contrôleur.Accueil_nouveauJeu">
+
+        <activity android:name=".imagefinal.POIObjectDrawable">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-            <activity android:name=".Contrôleur.GameBoussoleActivity"/>
-            <activity android:name=".Contrôleur.Scanner"/>
-        <activity android:name=".Contrôleur.Enigme"/>
-        <activity android:name=".Contrôleur.MapActivity2"/>
+
+
+        <meta-data
+            tools:replace="android:value"
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_application_id"/>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity android:name="com.facebook.CustomTabActivity"
+            android:exported="true"> <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="@string/fb_login_protocol_scheme" />
+        </intent-filter>
+        </activity>
+
+            <activity android:name=".capture.GameBoussoleActivity"/>
+            <activity android:name=".modèle.Scanner"/>
+        <activity android:name=".enigme.Enigme"/>
+        <activity android:name=".capture.MapActivity2"/>
+        <activity android:name=".enigme.EnigmeRecycler"/>
+
+        <activity android:name=".auth.ProfilActivity"
+            android:label="@string/toolbar_title_login_activity"
+            android:parentActivityName="auth.MainActivity"/>
+
+        <!-- NOTIFICATION SERVICE -->
+        <service
+            android:name=".notification.NotificationService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
